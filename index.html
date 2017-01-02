@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="js/jquery-1.12.3.min.js"></script>
+	<style>
+		.box div {
+            width:200px;
+            height:200px;
+            border: 1px solid #000;
+            display: none;
+        }
+        .box input.active {
+            background: yellow;
+        }
+        .box div.on{
+        	display: block;
+        }
+	</style>
+</head>
+<body>
+	<div class="box">
+		<input class="active" type="button" value="按钮1">
+		<input type="button" value="按钮2">
+		<input type="button" value="按钮3">
+		<div class="on">昨天是2017年的元旦</div>
+		<div>今天是2017年的第二天</div>
+		<div>加油加油</div>
+	</div>
+	<script>
+		$(function(){
+			$('input').click(function(){
+				$(this).addClass('active').siblings().removeClass('active');
+				$('.box>div').eq($(this).index()).addClass('on').siblings().removeClass('on');
+			});
+
+			// 自动播
+			function move(){
+				i++;
+				$('input').eq(i).addClass('active').siblings().removeClass('active');
+				$('.box>div').eq(i).addClass('on').siblings().removeClass('on');
+				if(i==2){
+					i=-1;
+				}
+			}
+			var timer = null;
+			var i = 0;
+			timer = setInterval(move,1000);
+			$('.box').mouseover(function(){
+				clearInterval(timer);
+			});
+			$('.box').mouseout(function(){
+				timer = setInterval(move,1000);
+			})
+		});
+
+	</script>
+</body>
+</html>
